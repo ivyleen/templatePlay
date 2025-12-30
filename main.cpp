@@ -123,6 +123,11 @@ int main()
 
     s.Print();
 
+    // creating a second integer type to test the counter
+    Stack<int> s1{5};
+
+    Stack<int>::PrintInstances();
+
     Stack<std::string> numbers{5};
     numbers.Push("One");
     numbers.Push("Two");
@@ -130,6 +135,8 @@ int main()
     numbers.Push("Four");
     numbers.Push("Five");
     numbers.Print();
+
+    Stack<std::string>::PrintInstances();
 
     using namespace std::string_literals;
     Pair<int, std::string> p1{101, "C++"}; // before c++17

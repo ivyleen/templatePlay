@@ -11,12 +11,17 @@ class Stack
     T *m_pBuffer{};
     size_t m_Top{};
     size_t m_Size{};
+    // the static member must be instantiated inside this header
+    // because this is a template class
+    // static size_t counter; // pre c++17
+    inline static size_t counter{}; // c++17 with value initialization
 
 public:
     Stack() = default;
     Stack(size_t size) : m_pBuffer{new T[size]},
                          m_Size{size}
     {
+        ++counter;
     }
 
     ~Stack()
@@ -81,7 +86,19 @@ public:
     {
         return m_Size;
     }
+
+    static void PrintInstances()
+    {
+        std::cout
+            << "Total instances for: " << typeid(Stack<T>).name()
+            << " are: " << counter
+            << std::endl;
+    }
 };
+
+// pre c++17
+// template <typename T>
+// size_t Stack<T>::counter = 0;
 
 // best practice
 extern template class Stack<int>;
