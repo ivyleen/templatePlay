@@ -1,0 +1,74 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "compile cpp files",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-g",
+        "-O0",
+        "-Wall",
+        "-Wextra",
+        "-std=c++20",
+        "-c",
+        "main.cpp",
+        "utils.cpp",
+        "more.cpp",
+        "stack.cpp"
+      ],
+      "options": {
+          "cwd": "${workspaceFolder}",
+          "shell": {
+              "executable": "cmd.exe",
+              "args": ["/C"]
+          }
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build"
+    },
+    {
+      "label": "link executable with map",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "main.o",
+        "utils.o",
+        "more.o",
+        "stack.o",
+        "-Wl,-Map,main.map",
+        "-o",
+        "main.exe"
+      ],
+      "options": {
+          "cwd": "${workspaceFolder}",
+          "shell": {
+              "executable": "cmd.exe",
+              "args": ["/C"]
+          }
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "dependsOn": "compile cpp files"   // <-- ensures compile runs first
+    },
+    {
+      "label": "generate per-object symbols",
+      "type": "shell",
+      "command": "cmd.exe",
+      "args": [
+        "/C",
+        "nm -C main.o > main_symbols.txt && nm -C utils.o > utils_symbols.txt && nm -C more.o > more_symbols.txt && nm -C stack.o > stack_symbols.txt"
+      ],
+      "options": {
+          "cwd": "${workspaceFolder}",
+          "shell": {
+              "executable": "cmd.exe",
+              "args": ["/C"]
+          }
+      },
+      "problemMatcher": [],
+      "group": "build",
+      "dependsOn": "compile cpp files"
+    }
+  ]
+}
