@@ -9,3 +9,19 @@
 // if i want to explictly instantiate the stack for int:
 // this will be the only instantiation of the Stack<int> type
 template class Stack<int>;
+
+template <>
+void Stack<Stack<int>>::Print()
+{
+    if (Empty())
+    {
+        std::cout << "stack is empty\n";
+        return;
+    }
+
+    for (size_t i = m_Top; i > 0; --i)
+    {
+        m_pBuffer[i - 1].Print();
+    }
+    std::cout << std::endl;
+}

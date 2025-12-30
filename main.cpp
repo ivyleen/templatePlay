@@ -112,12 +112,12 @@ int main()
         s.Push(i);
     }
 
-    s.Print();
+    /*s.Print();
     while (!s.Empty())
     {
         std::cout << s.Top() << ' ';
         s.Pop();
-    }
+    }*/
 
     std::cout << std::endl;
 
@@ -125,10 +125,15 @@ int main()
 
     // creating a second integer type to test the counter
     Stack<int> s1{5};
+    for (int i = 0; i < 5; ++i)
+    {
+        s1.Push(i * 10);
+    }
+    s1.Print();
 
-    Stack<int>::PrintInstances();
+    // Stack<int>::PrintInstances();
 
-    Stack<std::string> numbers{5};
+    /*Stack<std::string> numbers{5};
     numbers.Push("One");
     numbers.Push("Two");
     numbers.Push("Three");
@@ -142,4 +147,9 @@ int main()
     Pair<int, std::string> p1{101, "C++"}; // before c++17
     auto p2 = MakePair(101, "C++"s);
     Pair p3{101, "C++"s}; // after c++17, this will match our constructor
+*/
+    Stack<Stack<int>> stacks{2};
+    stacks.Push(s);
+    stacks.Push(s1);
+    stacks.Print();
 }
